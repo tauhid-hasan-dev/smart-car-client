@@ -1,11 +1,12 @@
 import React from 'react';
+import './Banner.css'
 
 const Carousel = ({ slide }) => {
     const { id, image, prev, next } = slide;
     return (
         <div id={`slide${id}`} className="carousel-item relative w-full">
             <div className='carousel-image'>
-                <img src={image} className="w-full" alt='' />
+                <img src={image} className="w-full rounded-xl" alt='' />
             </div>
             <div className="absolute flex justify-start left-24  transform -translate-y-1/2  right-5 top-1/4">
                 <p className='text-6xl font-bold text-start text-white'>
