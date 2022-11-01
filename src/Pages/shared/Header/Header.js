@@ -4,8 +4,9 @@ import logo from '../../../assets/logo.svg'
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     console.log(user)
+
     const menuItem = <>
         <li className='font-semibold'><Link to='/'>Home</Link></li>
         <li className='font-semibold'><Link to='/login'>Login</Link></li>
@@ -30,7 +31,11 @@ const Header = () => {
                     {menuItem}
                 </ul>
             </div>
+
             <div className="navbar-end">
+                <div className='mr-5'>
+                    <p className='text-black'>Welcome <span className='text-orange-500 font-bold'>{user?.displayName}</span></p>
+                </div>
                 <button className="btn btn-outline btn-warning">Appointment</button>
             </div>
         </div>

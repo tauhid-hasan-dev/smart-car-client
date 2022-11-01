@@ -1,31 +1,47 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import image from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUser } = useContext(AuthContext);
+    const navigate = useNavigate()
     const handleSignUp = (event) => {
         event.preventDefault();
 
         const form = event.target;
+        const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
+        console.log(name);
 
         console.log(email, password)
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                toast.success('Registration successful!')
+                toast.success('Registration successful!');
+                updateUserInfo(name);
+                navigate('/')
                 console.log(user);
             })
             .catch(err => {
                 console.error(err);
                 toast.error(err)
             })
-
     }
+
+
+    const updateUserInfo = (name) => {
+        const profile = {
+            displayName: name,
+        }
+        updateUser(profile)
+            .then(() => { })
+            .catch(e => console.log(e))
+    }
+
+
     return (
         <div className="hero">
             <div className="hero-content flex-col  lg:flex-row">
