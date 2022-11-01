@@ -10,7 +10,7 @@ const Services = () => {
     }, [])
     console.log(services);
     return (
-        <div >
+        <div className='mb-10'>
             <div className='text-center flex flex-col gap-2 mb-10'>
                 <p className="text-2xl font-bold text-orange-600">Services</p>
                 <p className="text-5xl font-semibold">Our Service Area</p>
