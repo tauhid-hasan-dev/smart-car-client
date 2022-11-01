@@ -1,10 +1,32 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import image from '../../assets/images/login/login.svg'
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
+    const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleSignIn = (event) => {
         event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        //console.log(email, password)
+        signIn(email, password)
+            .then(result => {
+                const user = result.user;
+                navigate('/');
+                toast.success('You are logged in!')
+                console.log(user);
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error(err)
+            })
+
     }
     return (
         <div className="hero">
