@@ -4,7 +4,7 @@ import OrderRow from './OrderRow';
 
 const Orders = () => {
     const { user } = useContext(AuthContext);
-    const [orders, setOrders] = useState({});
+    const [orders, setOrders] = useState([]);
 
     //using query parameter to load specific user details
     useEffect(() => {
@@ -14,23 +14,17 @@ const Orders = () => {
     }, [user?.email])
     return (
         <div>
-            {/* <p>total orders : {orders?.length}</p> */}
-            {
-                !orders?.length && <p>loading..</p>
-            }
-            {orders?.length && <div className="overflow-x-auto w-full">
+            <p>total orders : {orders?.length}</p>
+
+            <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
+                            <th></th>
                             <th>Name</th>
                             <th>Job</th>
                             <th>Favorite Color</th>
-                            <th></th>
+                            <th>Message</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +35,6 @@ const Orders = () => {
                 </table>
             </div>
 
-            }
         </div>
     );
 };
