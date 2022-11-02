@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Checkout = () => {
     const service = useLoaderData();
-    const { title } = service;
+    const { title, price, _id } = service;
     const { user } = useContext(AuthContext);
 
     const handlePlaceOrder = event => {
@@ -14,8 +14,34 @@ const Checkout = () => {
         const email = user?.email || 'unregistered'
         const phone = form.phone.value;
         const message = form.message.value;
-
         console.log(name, email, phone, message);
+
+        const order = {
+            service: _id,
+            serviceName: title,
+            price,
+            customer: name,
+            email,
+            phone,
+            message
+        }
+
+        if (phone.length < 5) {
+            alert('Your phone number should be at least 10 character')
+        } else {
+            fetch('https://smart-car-server.vercel.app/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.error(err))
+        }
+
+
     }
 
     return (
@@ -26,7 +52,7 @@ const Checkout = () => {
                     <input name='firstName' type="text" placeholder="Your First Name" className="input input-bordered input-error w-full" />
                     <input name='lastName' type="text" placeholder="Your Last Name" className="input input-bordered input-error w-full" />
                     <input name='email' type="email" placeholder="Your Email" className="input input-bordered input-error w-full" defaultValue={user?.email} readOnly />
-                    <input name='phone' type="text" placeholder="Password" className="input input-bordered input-error w-full" />
+                    <input name='phone' type="text" placeholder="Password" className="input input-bordered input-error w-full" required />
                 </div>
                 <textarea name='message' className="textarea textarea-error w-full" placeholder="Your message"></textarea>
                 <input className='bg-orange-500 p-3 text-white font-bold cursor-pointer text-2xl rounded-lg hover:bg-orange-600' type="submit" value="Order Confirm" />
