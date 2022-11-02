@@ -37,7 +37,14 @@ const Checkout = () => {
                 body: JSON.stringify(order)
             })
                 .then(res => res.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    if (data.acknowledged) {
+                        alert('Order placed');
+                        form.reset()
+                    }
+
+                })
                 .catch(err => console.error(err))
         }
 
@@ -47,6 +54,7 @@ const Checkout = () => {
     return (
         <div className='pb-10'>
             <p className='text-4xl font-bold text-center mb-5'>You are about to checkout for {title}</p>
+            <p className='text-3xl text-orange-500 font-bold text-center mb-10'>Price: ${price}</p>
             <form onSubmit={handlePlaceOrder} className='p-10 rounded-2xl bg-orange-50 flex flex-col gap-5'>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-5  '>
                     <input name='firstName' type="text" placeholder="Your First Name" className="input input-bordered input-error w-full" />
