@@ -32,6 +32,23 @@ const Orders = () => {
 
         }
     }
+
+    const handleStatusUpdate = id => {
+        fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ status: "Approved" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
+    }
+
+
     return (
         <div>
             <p>total orders : {orders?.length}</p>
@@ -49,7 +66,13 @@ const Orders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.map(order => <OrderRow key={order._id} order={order} handleDelete={handleDelete}></OrderRow>)
+                            orders.map(order => <OrderRow
+                                key={order._id}
+                                order={order}
+                                handleDelete={handleDelete}
+                                handleStatusUpdate={handleStatusUpdate}
+                            >
+                            </OrderRow>)
                         }
                     </tbody>
                 </table>

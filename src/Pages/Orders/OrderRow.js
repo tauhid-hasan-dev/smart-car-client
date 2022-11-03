@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-const OrderRow = ({ order, handleDelete }) => {
-    const { serviceName, price, customer, phone, message, service, _id } = order;
+const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
+    const { serviceName, price, customer, phone, service, _id, status } = order;
     const [orderService, setOrderService] = useState()
     console.log(order);
 
@@ -44,7 +44,7 @@ const OrderRow = ({ order, handleDelete }) => {
             </td>
             <td>Purple</td>
             <th>
-                <button className="btn btn-ghost btn-xs">{message}</button>
+                <button onClick={() => handleStatusUpdate(_id)} className="btn btn-ghost btn-xs">{status ? status : 'Pending'}</button>
             </th>
         </tr>
     );
