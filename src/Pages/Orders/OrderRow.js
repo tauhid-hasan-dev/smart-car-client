@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const OrderRow = ({ order }) => {
+const OrderRow = ({ order, handleDelete }) => {
     const { serviceName, price, customer, phone, message, service, _id } = order;
     const [orderService, setOrderService] = useState()
     console.log(order);
@@ -13,20 +13,7 @@ const OrderRow = ({ order }) => {
             .then(data => setOrderService(data))
     }, [service])
 
-    const handleDelete = (id) => {
-        const proceed = window.confirm('Are you sure to delete this order');
-        if (proceed) {
-            fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
 
-                })
-
-        }
-    }
 
     return (
         <tr>
