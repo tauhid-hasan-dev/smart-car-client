@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import image from '../../assets/images/login/login.svg'
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
+    let location = useLocation();
     const navigate = useNavigate();
+
+    let from = location.state?.from?.pathname || "/";
 
     const handleSignIn = (event) => {
         event.preventDefault();
@@ -18,7 +21,7 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                navigate('/');
+                navigate(from, { replace: true });
                 toast.success('You are logged in!')
                 console.log(user);
             })
