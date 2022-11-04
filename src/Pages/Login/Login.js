@@ -37,7 +37,8 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        localStorage.setItem('smart-token', data.token)
+                        localStorage.setItem('smart-token', data.token);
+                        navigate(from, { replace: true });
                     })
                 /* navigate(from, { replace: true });
                 toast.success('You are logged in!')
