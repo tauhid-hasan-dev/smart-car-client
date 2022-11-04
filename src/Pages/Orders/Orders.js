@@ -8,7 +8,11 @@ const Orders = () => {
 
     //using query parameter to load specific user details
     useEffect(() => {
-        fetch(`https://smart-car-server.vercel.app/orders?email=${user?.email}`)
+        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('smart-token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [user?.email]);
