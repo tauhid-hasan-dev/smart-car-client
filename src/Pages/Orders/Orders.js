@@ -8,7 +8,7 @@ const Orders = () => {
 
     //using query parameter to load specific user details
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        fetch(`https://smart-car-server.vercel.app/orders?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('smart-token')}`
             }
@@ -28,7 +28,7 @@ const Orders = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure to delete this order');
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
                 method: 'DELETE',
 
             })
@@ -47,7 +47,7 @@ const Orders = () => {
     }
 
     const handleStatusUpdate = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
