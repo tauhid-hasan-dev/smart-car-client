@@ -29,10 +29,11 @@ const Checkout = () => {
         if (phone.length < 5) {
             alert('Your phone number should be at least 10 character')
         } else {
-            fetch('https://smart-car-server.vercel.app/orders', {
+            fetch('http://localhost:5000/orders', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
                 },
                 body: JSON.stringify(order)
             })

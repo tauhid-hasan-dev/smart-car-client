@@ -8,7 +8,7 @@ const OrderRow = ({ order, handleDelete, handleStatusUpdate }) => {
     //we did this useEffect and fetched data from service collection and set to a state , because we need data(in this case img) to add info from service collection to add order page
 
     useEffect(() => {
-        fetch(`https://smart-car-server.vercel.app/checkout/${service}`)
+        fetch(`http://localhost:5000/checkout/${service}`)
             .then(res => res.json())
             .then(data => setOrderService(data))
     }, [service])

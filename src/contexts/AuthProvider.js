@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const logout = () => {
+
         return signOut(auth);
     }
 

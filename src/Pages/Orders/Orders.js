@@ -3,7 +3,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import OrderRow from './OrderRow';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
 
     //using query parameter to load specific user details
@@ -13,15 +13,24 @@ const Orders = () => {
                 authorization: `Bearer ${localStorage.getItem('smart-token')}`
             }
         })
-            .then(res => res.json())
-            .then(data => setOrders(data))
-    }, [user?.email]);
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logout()
+                }
+                return res.json()
+            })
+            .then(data => {
+                console.log('received', data)
+                setOrders(data)
+            })
+    }, [user?.email, logout]);
 
     const handleDelete = (id) => {
         const proceed = window.confirm('Are you sure to delete this order');
         if (proceed) {
-            fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
-                method: 'DELETE'
+            fetch(`http://localhost:5000/orders/${id}`, {
+                method: 'DELETE',
+
             })
                 .then(res => res.json())
                 .then(data => {
@@ -38,10 +47,11 @@ const Orders = () => {
     }
 
     const handleStatusUpdate = id => {
-        fetch(`https://smart-car-server.vercel.app/orders/${id}`, {
+        fetch(`http://localhost:5000/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
+
             },
             body: JSON.stringify({ status: "Approved" })
         })
