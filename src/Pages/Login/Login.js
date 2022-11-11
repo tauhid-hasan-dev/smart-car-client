@@ -27,7 +27,7 @@ const Login = () => {
 
                 console.log(currentUser)
                 //getting token from the server
-                fetch('https://smart-car-server.vercel.app/jwt', {
+                fetch('http://localhost:5000/jwt/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
